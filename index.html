@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Carregamento</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+
+        .barra-container {
+            width: 80%;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 30px;
+            margin: 10px 0;
+        }
+
+        .barra {
+            width: 0%;
+            height: 100%;
+            background-color: #007bff;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .botao {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .botao:hover {
+            background-color: #0056b3;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Defina a porcentagem de carregamento</h2>
+    <input type="number" id="inputValor" min="0" max="100" placeholder="0 - 100">
+    <button class="botao" onclick="iniciarCarregamento()">Carregar</button>
+
+    <div class="barra-container">
+        <div class="barra" id="barra">0%</div>
+    </div>
+
+    <script>
+        function iniciarCarregamento() {
+            let barra = document.getElementById("barra");
+            let inputValor = document.getElementById("inputValor").value;
+            let largura = 0;
+            let valorFinal = parseInt(inputValor);
+
+            if (isNaN(valorFinal) || valorFinal < 0 || valorFinal > 100) {
+                alert("Digite um valor entre 0 e 100!");
+                return;
+            }
+
+            let intervalo = setInterval(() => {
+                if (largura >= valorFinal) {
+                    clearInterval(intervalo);
+                } else {
+                    largura += 1;
+                    barra.style.width = largura + "%";
+                    barra.textContent = largura + "%";
+                }
+            }, 50);
+        }
+    </script>
+
+</body>
+</html>
